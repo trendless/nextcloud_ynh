@@ -57,3 +57,15 @@ name.fr = "Configuration de Nextcloud"
         type = "boolean"
         help.en = "If all your users have set a forward email and aren't using YunoHost emails, you may choose to set their forward email as their Nextcloud email setting."
         help.fr = "Si tous vos utilisateurs ont paramétré un e-mail de transfert et n'utilise pas du tout les e-mails de leur compte YunoHost, vous pouvez paramétrer Nextcloud d'utiliser les e-mails de transfert."
+
+    [main.version]
+    name.en = "Version"
+    name.fr = "Version"
+
+        [main.vesion.pin_major_version]
+        ask.en = "Pin current major version?"
+        ask.fr = "Pin version principale actuelle"
+        type = "boolean"
+        help.en = "Enable this to continue getting updates for the major version you're currently running instead of upgrading to the next one."
+        help.fr = "Activez ceci pour continuer à obtenir des mises à jour pour la version majeure que vous exécutez actuellement au lieu de mettre à jour vers la prochaine."
+        default = false
