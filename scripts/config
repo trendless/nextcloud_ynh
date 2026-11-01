@@ -141,6 +141,35 @@ set__enable_forward_email() {
 }
 
 #=================================================
+# OCC TERMINAL
+#=================================================
+
+get__occ_output() {
+    local output
+    output=$(ynh_app_setting_get --app="$app" --key="occ_output" 2>/dev/null || echo "No command executed yet.")
+
+    python3 -c 'import yaml, sys; print(yaml.dump(sys.stdin.read(), default_style="|"))' <<< "$output"
+}
+
+run__run_occ() {
+    local nc_path="${install_dir:-/var/www/nextcloud}"
+    local nc_user="${app:-nextcloud}"
+
+    ynh_print_info "Running: php occ $occ_args"
+
+    local result
+    result=$(sudo -u "$nc_user" php "$nc_path/occ" $occ_args 2>&1)
+    local exit_code=$?
+
+    if [ $exit_code -eq 0 ]; then
+        ynh_print_info "Command executed successfully."
+    else
+        ynh_print_info "Command finished with exit code $exit_code."
+    fi
+
+    ynh_app_setting_set --app="$app" --key="occ_output" --value="$result"
+
+#=================================================
 # SPECIFIC RUNNERS FOR TOML SHORT KEYS
 #=================================================
 
